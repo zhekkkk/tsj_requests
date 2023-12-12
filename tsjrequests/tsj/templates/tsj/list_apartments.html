@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+<br>
+<h4>Количество квартир: {{ number }}</h4>
+<br>
+<a href="{% url 'create_apartment' %}" class="add_link">+ Добавить квартиру</a>
+<br>
+<br>
+<br>
+<span>
+    {% if items.has_previous %}
+    <a href="?page=1">&laquo; в начало...</a>
+    <a href="?page={{ items.previous_page_number }}">пред.</a>
+    {% endif %}
+    <span>
+        Страница {{ items.number }} из {{ items.paginator.num_pages }}
+    </span>
+    {% if items.has_next %}
+    <a href="?page={{ items.next_page_number }}">след.</a>
+    <a href="?page={{ items.paginator.num_pages }}">...в конец &raquo;</a>
+    {% endif %}
+</span>
+<br>
+<br>
+<table class="table">
+    <tr>
+        <th>id</th>
+        <th>Адрес</th>
+        <th>Номер квартиры</th>
+        <th>Опции</th>
+    </tr>
+    {% for i in items %}
+    <tr>
+        <td>{{ i.id }}</td>
+        <td>{{ i.address }}</td>
+        <td>{{ i.number }} </td>
+        <td><a href="{{ i.get_absolute_url }}" class="update_link">изменить</a><br>
+            <a href="{% url 'delete_apartment' i.pk %}" class="remove_link">удалить</a></td>
+    </tr>
+    {% endfor %}
+</table>
+<span>
+    {% if items.has_previous %}
+    <a href="?page=1">&laquo; в начало...</a>
+    <a href="?page={{ items.previous_page_number }}">пред.</a>
+    {% endif %}
+    <span>
+        Страница {{ items.number }} из {{ items.paginator.num_pages }}
+    </span>
+    {% if items.has_next %}
+    <a href="?page={{ items.next_page_number }}">след.</a>
+    <a href="?page={{ items.paginator.num_pages }}">...в конец &raquo;</a>
+    {% endif %}
+</span>
+<!--<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    var page = 1;
+    var loading = false;
+
+    function loadMoreData() {
+        if (loading) {
+            return;
+        }
+
+        var scrollTop = $(window).scrollTop();
+        var windowHeight = $(window).height();
+        var documentHeight = $(document).height();
+
+        if (scrollTop + windowHeight >= documentHeight - 100) {
+            loading = true;
+            $.ajax({
+                url: '/apartments/',
+                data: {'page': page},
+                dataType: 'json',
+                success: function (data) {
+                    if(data.data.length > 0) {
+                        console.log(data.data);
+                        page++;
+                    }
+                },
+                complete: function () {
+                    loading = false;
+                }
+            });
+        }
+    }
+
+    $(document).ready(function () {
+        $(window).scroll(loadMoreData);
+    });
+</script>-->
+{% endblock %}

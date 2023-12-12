@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<table class="table">
+    {% for i in items %}
+    <tr>
+        <td>{{ i.title }}</td>
+        <td>{{ i.price }} руб.</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

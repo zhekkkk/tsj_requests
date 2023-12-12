@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+<br>
+<h4>Количество жителей: {{ number }}</h4>
+<br>
+<a href="{% url 'create_resident' %}" class="add_link">+ Добавить жителя</a>
+<br>
+<br>
+<br>
+<table class="table">
+    <tr>
+        <th>Имя</th>
+        <th>Адрес проживания</th>
+        <th>Опции</th>
+    </tr>
+    {% for i in items %}
+    <tr>
+        <td>{{ i.first_name }} {{ i.last_name }}</td>
+        <td>ул. {{ i.apartment }} </td>
+        <td><a href="{{ i.get_absolute_url }}" class="update_link">изменить</a><br>
+            <a href="{% url 'delete_resident' i.pk %}" class="remove_link">удалить</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

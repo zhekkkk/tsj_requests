@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+<br>
+<h4>Количество работников: {{ number }}</h4>
+<br>
+<a href="{% url 'create_worker' %}" class="add_link">+ Добавить работника</a>
+<br>
+<br>
+<br>
+<h4>Фильтр: </h4>
+<ul>
+    <li><a href="{% url 'workers' %}">Все работники</a></li>
+    <li><a href="{% url 'worker_position' 'plumbers' %}">Сантехники</a></li>
+    <li><a href="{% url 'worker_position' 'electricians' %}">Электрики</a></li>
+    <li><a href="{% url 'worker_position' 'janitors' %}">Дворники</a></li>
+    <li><a href="{% url 'worker_position' 'cleaners' %}">Уборщицы</a></li>
+</ul>
+<table class="table">
+    <tr>
+        <th>Имя</th>
+        <th>Должность</th>
+        <th>Опции</th>
+    </tr>
+    {% for i in items %}
+    <tr>
+        <td>{{ i.first_name }} {{ i.last_name }}</td>
+        <td>{{ i.work_position.title }} </td>
+        <td><a href="{{ i.get_absolute_url }}" class="update_link">изменить</a><br>
+            <a href="{% url 'delete_worker' i.pk %}" class="remove_link">удалить</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

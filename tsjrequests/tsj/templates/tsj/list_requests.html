@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+<br>
+<h4>Количество заявок: {{ number }}</h4>
+<br>
+<a href="{% url 'create_request' %}" class="add_link">+ Добавить заявку</a>
+<br>
+<br>
+<br>
+<h4>Фильтр: </h4>
+<ul>
+    <li><a href="{% url 'requests' %}">Все заявки</a></li>
+    <li><a href="{% url 'request_type' 'tsj-request' %}">За счёт ТСЖ</a></li>
+    <li><a href="{% url 'request_type' 'resident-request' %}">За счёт жильцов</a></li>
+</ul>
+<table class="table">
+    <tr>
+        <th>Тип услуги</th>
+        <th>Стоимость</th>
+        <th>Назначенный работник</th>
+        <th>Житель</th>
+        <th>Адрес</th>
+        <th>Квартира</th>
+        <th>Статус заявки</th>
+        <th>Тип заявки</th>
+        <th>Дата и время создания</th>
+        <th>Дата и время обновления</th>
+        <th>Описание или комментарий</th>
+        <th>Опции</th>
+    </tr>
+    {% for i in items %}
+    {% if i.work_type.price == max_price %}
+    <tr style="background-color:#ffe22b">
+        {% else %} <tr> {% endif %}
+        <td>{{ i.work_type }}</td>
+        <td>{{ i.work_type.price }} руб.</td>
+        {% if i.worker == null %}
+        <td>-</td>
+        {% else %}
+        <td>{{ i.worker }}</td>
+        {% endif %}
+        <td>{{ i.resident }}</td>
+        <td>ул. {{ i.apartment.address }}</td>
+        <td>{{ i.apartment.number }}</td>
+        <td>{{ i.status }}</td>
+        <td>{{ i.request_type }}</td>
+        <td>{{ i.create_time }}</td>
+        <td>{{ i.update_time }}</td>
+        {% if i.description == null %}
+        <td>-</td>
+        {% else %}
+        <td>{{ i.description }}</td>
+        {% endif %}
+        <td><a href="{{ i.get_absolute_url }}" class="update_link">изменить</a><br>
+            <a href="{% url 'delete_request' i.pk %}" class="remove_link">удалить</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

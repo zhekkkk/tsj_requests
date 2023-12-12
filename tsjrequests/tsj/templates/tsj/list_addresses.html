@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+<br>
+<h4>Количество адресов: {{ number }}</h4>
+<br>
+<a href="{% url 'create_address' %}" class="add_link">+ Добавить адрес</a>
+<br>
+<br>
+<br>
+<table class="table">
+    <tr>
+        <th>Улица</th>
+        <th>Номер дома</th>
+        <th>Опции</th>
+    </tr>
+    {% for i in items %}
+    <tr>
+        <td>{{ i.street_name }}</td>
+        <td>{{ i.house_number }} </td>
+        <td><a href="{{ i.get_absolute_url }}" class="update_link">изменить</a><br>
+            <a href="{% url 'delete_address' i.pk %}" class="remove_link">удалить</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

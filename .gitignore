@@ -6,4 +6,4 @@ db.sqlite3
 /static 
 .DS_Store
 .idea
-/tsj/tsjrequests/settings.py
+/tsjrequests/tsjrequests/settings.py
